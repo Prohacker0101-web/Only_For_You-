@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Varsha ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Soft Baby Pink & Rich Red Luxury Theme */
+            --bg-pink: #fff0f2; 
+            --love-red: #d9384a; 
+            --rose-accent: #ffb3bc;
+            --deep-wine: #5c1d24;
+            --card-white: rgba(255, 255, 255, 0.96);
+            --font-display: 'Cinzel', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --font-handwrite: 'Caveat', cursive;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fff0f2 0%, #ffe3e7 100%);
+            font-family: var(--font-body);
+            color: var(--deep-wine);
+        }
+
+        /* Full Screen Interactive Canvas */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .music-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--rose-accent);
+            padding: 8px 15px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            color: var(--love-red);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(217, 56, 74, 0.15);
+            cursor: pointer;
+        }
+
+        .stage-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: scale(1.03);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .screen.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .love-card {
+            background: var(--card-white);
+            border: 2px solid rgba(255, 179, 188, 0.4);
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 520px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(217, 56, 74, 0.08), inset 0 0 20px rgba(255, 240, 242, 0.6);
+            transform: translateY(15px);
+            transition: transform 0.7s ease;
+        }
+        .love-card::-webkit-scrollbar { width: 3px; }
+        .love-card::-webkit-scrollbar-thumb { background: var(--rose-accent); border-radius: 10px; }
+        
+        .screen.active .love-card { transform: translateY(0); }
+
+        .title-romantic {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--love-red);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .script-romantic {
+            font-family: var(--font-handwrite);
+            font-size: 3.8rem;
+            color: var(--love-red);
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .romantic-input {
+            background: #ffffff;
+            border: 2px solid var(--rose-accent);
+            padding: 14px 20px;
+            border-radius: 50px;
+            color: var(--deep-wine);
+            font-family: var(--font-body);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-align: center;
+            width: 100%;
+            max-width: 260px;
+            margin-top: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .romantic-input:focus {
+            border-color: var(--love-red);
+            box-shadow: 0 0 15px rgba(217, 56, 74, 0.2);
+        }
+
+        .btn-romantic {
+            margin-top: 25px;
+            background: linear-gradient(135deg, var(--love-red), #ff5e6e);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            color: #ffffff;
+            font-family: var(--font-body);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(217, 56, 74, 0.3);
+        }
+        .btn-romantic:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(217, 56, 74, 0.4);
+        }
+
+        /* Advanced Interactive Heart Explosion Button */
+        .heart-clicker-zone {
+            margin-top: 30px;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .heart-trigger-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid var(--rose-accent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(217, 56, 74, 0.1);
+        }
+        .heart-trigger-btn svg {
+            width: 26px;
+            height: 26px;
+            fill: var(--love-red);
+            transition: transform 0.2s ease;
+        }
+        .heart-trigger-btn:hover { 
+            transform: scale(1.12); 
+            border-color: var(--love-red); 
+            box-shadow: 0 8px 20px rgba(217, 56, 74, 0.2); 
+        }
+        .heart-trigger-btn:active svg { transform: scale(0.8); }
+
+        .heart-hint {
+            font-family: var(--font-body);
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--love-red);
+            font-weight: 600;
+            animation: heartPulse 1.8s infinite ease-in-out;
+        }
+
+        .typewriter-text {
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-size: 14.5px;
+            line-height: 2;
+            color: var(--deep-wine);
+            text-align: left;
+            min-height: 120px;
+        }
+
+        .prose-romantic {
+            font-size: 15px;
+            line-height: 1.9;
+            font-weight: 400;
+            color: var(--deep-wine);
+            margin-bottom: 15px;
+        }
+
+        .love-list { text-align: left; max-width: 450px; margin: 20px auto; }
+        .love-item { display: flex; align-items: center; gap: 12px; margin: 15px 0; font-size: 14px; line-height: 1.7; }
+        .love-bullet { width: 6px; height: 6px; background: var(--love-red); border-radius: 50%; flex-shrink: 0; }
+
+        .error-popup {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%) translateY(30px);
+            background: #ffffff;
+            border: 2px solid var(--love-red);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--love-red);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10000;
+            box-shadow: 0 10px 25px rgba(217, 56, 74, 0.15);
+        }
+        .error-popup.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="loveUniverse"></canvas>
+    
+    <button class="music-indicator" id="musicBtn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h6V3h-8z"/></svg>
+        Slowed Lo-Fi Score Loop
+    </button>
+    
+    <div class="error-popup" id="errorNotice">Please enter the correct name with V capital! ❤️</div>
+
+    <div class="experience-stage">
+
+        <div class="screen active" id="stage-gatekeeper">
+            <div class="love-card" style="max-width: 450px;">
+                <div class="script-romantic">Hey...</div>
+                <h1 class="title-romantic" style="font-size: 13.5px; margin-bottom: 5px; letter-spacing: 1.5px;">Maine tumhare liye kuch chhota sa banaya hai.</h1>
+                <input type="text" id="passkeyField" class="romantic-input" placeholder="Enter Your Name" autocomplete="off">
+                <br>
+                <button class="btn-romantic" onclick="checkSecurityAccess()">Open It</button>
+            </div>
+        </div>
+
+        <div class="screen" id="stage-letter">
+            <div class="love-card">
+                <h2 class="title-romantic">Just Wanted to Say...</h2>
+                <div class="typewriter-text" id="typewriterBox"></div>
+                
+                <div class="heart-clicker-zone">
+                    <div class="heart-trigger-btn" onclick="handleHeartExplosion(2, event)">
+                        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
+                    <span class="heart-hint">Tap to Explode</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="screen" id="stage-favorites">
+            <div class="love-card">
+                <h2 class="title-romantic" style="font-size: 16px; margin-bottom: 5px;">My Favorite Things</h2>
+                
+                <div class="love-list">
+                    <div class="love-item"><div class="love-bullet"></div><p>Tumhari wo pyari si smile jisse mera kaisa bhi day ho, achha ho jata hai.</p></div>
+                    <div class="love-item"><div class="love-bullet"></div><p>I really love your hugs and kisses... wo feeling sabse best hoti hai.</p></div>
+                    <div class="love-item"><div class="love-bullet"></div><p>Hamara sath me rehna, wo choti baatein aur sath me bitaye saare moments.</p></div>
+                    <div class="love-item"><div class="love-bullet"></div><p>Jab tum bina kisi filter ke mujhse apne dil ki har baat share karti ho.</p></div>
+                </div>
+
+                <div class="heart-clicker-zone">
+                    <div class="heart-trigger-btn" onclick="handleHeartExplosion(3, event)">
+                        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
+                    <span class="heart-hint">Tap to Explode</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="screen" id="stage-peace">
+            <div class="love-card">
+                <h2 class="title-romantic" style="font-size: 16px;">No More Arguments...</h2>
+                <div class="prose-romantic" style="margin-top: 15px;">
+                    "Main sach me ab koi ladai ya faltu ki bahas nahi karna chahta. Main chahta hoon ki hum dono bas khush rahein, bina kisi tension ke."
+                </div>
+                <div class="prose-romantic" style="color: var(--love-red); font-weight: 600;">
+                    "Tumhe pata hai? Tum mera 'Happy Place' ho. Jab sab kuch ajeeb chal raha hota hai, tab tumse baat karke hi mujhe sukoon milta hai. Isiliye ab bas is rishte ko pyara aur khushnuma rakhna hai."
+                </div>
+
+                <div class="heart-clicker-zone">
+                    <div class="heart-trigger-btn" onclick="handleHeartExplosion(4, event)">
+                        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
+                    <span class="heart-hint">Tap to Explode</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="screen" id="stage-outro">
+            <div class="love-card" style="border: 2px solid var(--love-red);">
+                <div class="script-romantic" style="font-size: 3.5rem;">Varsha</div>
+                <div class="prose-romantic" style="line-height: 2; font-size: 15px;">
+                    "Main nahi janta ki aane wala kal kaisa hoga, ya hum kab tak sath hain... Future kya hai, kisi ko nahi pata."
+                    <br><br>
+                    <span style="color: var(--love-red); font-weight: 600;">Par main ek baat jaanta hoon—</span><br>
+                    Jab tak hum sath hain, main tumhe hamesha dher saari care, saccha sath aur dher saara pyaar deta rahunga.
+                </div>
+                <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--deep-wine); margin-top: 30px;">
+                    With you, always. <br><span style="font-size: 18px; font-weight: 700; color: var(--love-red); display: block; margin-top: 6px;">Sagar ❤️</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let audioContextInstance = null;
+        let masterWarmthFilter = null;
+        let musicActiveState = false;
+        let compositionTimer = null;
+
+        function prepareAudioPipeline() {
+            try {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                audioContextInstance = new AudioContextClass();
+                masterWarmthFilter = audioContextInstance.createBiquadFilter();
+                masterWarmthFilter.type = 'lowpass';
+                masterWarmthFilter.frequency.setValueAtTime(380, audioContextInstance.currentTime); // Lowpass for that slowed lofi warmth
+            } catch(error) { console.log("Audio infrastructure deferred."); }
+        }
+
+        function playLoFiChords(frequencies, delayOffset, soundDuration, volumeIntensity) {
+            if (!audioContextInstance) return;
+            frequencies.forEach(pitch => {
+                let oscillatorNode = audioContextInstance.createOscillator();
+                let soundGainNode = audioContextInstance.createGain();
+                
+                oscillatorNode.type = 'triangle'; // Mellower lofi aesthetic than standard sine
+                oscillatorNode.frequency.setValueAtTime(pitch, audioContextInstance.currentTime + delayOffset);
+                
+                soundGainNode.gain.setValueAtTime(0, audioContextInstance.currentTime + delayOffset);
+                soundGainNode.gain.linearRampToValueAtTime(volumeIntensity / frequencies.length, audioContextInstance.currentTime + delayOffset + 0.6);
+                soundGainNode.gain.exponentialRampToValueAtTime(0.0001, audioContextInstance.currentTime + delayOffset + soundDuration);
+                
+                oscillatorNode.connect(soundGainNode);
+                soundGainNode.connect(masterWarmthFilter);
+                masterWarmthFilter.connect(audioContextInstance.destination);
+                
+                oscillatorNode.start(audioContextInstance.currentTime + delayOffset);
+                oscillatorNode.stop(audioContextInstance.currentTime + delayOffset + soundDuration);
+            });
+        }
+
+        function runSlowedLoFiSequence() {
+            if (!musicActiveState) return;
+            
+            // Dreamy, ultra-slowed down romantic progression loops
+            playLoFiChords([196.00, 246.94, 293.66, 392.00], 0.0, 4.5, 0.15); // Gmaj7 Warmth
+            playLoFiChords([164.81, 220.00, 261.63, 329.63], 5.0, 4.5, 0.12); // Cmaj7 Slowed Vibe
+            
+            compositionTimer = setTimeout(runSlowedLoFiSequence, 10000);
+        }
+
+        function engageRomanticMusic() {
+            if (musicActiveState) return;
+            if (!audioContextInstance) prepareAudioPipeline();
+            if (audioContextInstance && audioContextInstance.state === 'suspended') audioContextInstance.resume();
+            
+            musicActiveState = true;
+            document.getElementById('musicBtn').style.display = 'flex';
+            runSlowedLoFiSequence();
+        }
+
+        document.getElementById('musicBtn').addEventListener('click', () => {
+            if(audioContextInstance) {
+                if(audioContextInstance.state === 'running') {
+                    audioContextInstance.suspend();
+                    document.getElementById('musicBtn').style.opacity = 0.4;
+                } else {
+                    audioContextInstance.resume();
+                    document.getElementById('musicBtn').style.opacity = 1;
+                }
+            }
+        });
+    </script>
+
+    <script>
+        const canvasElement = document.getElementById('loveUniverse');
+        const drawContext = canvasElement.getContext('2d');
+
+        let continuousBackgroundParticles = [];
+        let screenBlastParticles = [];
+        let currentVisualStage = 0;
+
+        function adjustCanvasBounds() {
+            canvasElement.width = window.innerWidth;
+            canvasElement.height = window.innerHeight;
+        }
+        window.addEventListener('resize', adjustCanvasBounds);
+        adjustCanvasBounds();
+
+        // Slow floating ambient background nodes
+        class AmbientDrifter {
+            constructor() {
+                this.regenerate(true);
+            }
+            regenerate(randomY = false) {
+                this.positionX = Math.random() * canvasElement.width;
+                this.positionY = randomY ? (Math.random() * canvasElement.height) : (canvasElement.height + 20);
+                this.dimensionSize = Math.random() * 2.5 + 1.5;
+                this.movementSpeedY = Math.random() * 0.4 + 0.15;
+                this.opacityAlpha = Math.random() * 0.3 + 0.1;
+                this.pulseRate = Math.random() * 0.02 + 0.005;
+            }
+            step() {
+                this.positionY -= this.movementSpeedY;
+                this.opacityAlpha += this.pulseRate;
+                if(this.opacityAlpha > 0.4 || this.opacityAlpha < 0.1) this.pulseRate *= -1;
+                if(this.positionY < -20) this.regenerate(false);
+            }
+            render() {
+                drawContext.beginPath();
+                drawContext.arc(this.positionX, this.positionY, this.dimensionSize, 0, Math.PI * 2);
+                drawContext.fillStyle = `rgba(217, 56, 74, ${Math.abs(this.opacityAlpha)})`;
+                drawContext.fill();
+            }
+        }
+
+        // Kinetic Shockwave Shock Exploder Model
+        class MultiExplosionVector {
+            constructor(originX, originY, dynamicVariantType) {
+                this.originX = originX;
+                this.originY = originY;
+                this.variant = dynamicVariantType; // Generates distinct structural styles per stage click
+                
+                this.angleTrajectory = Math.random() * Math.PI * 2;
+                this.velocityForce = Math.random() * 11 + 6; // Fast explosive launch force
+                this.particleAlpha = 1;
+                this.fadeDecay = Math.random() * 0.016 + 0.012;
+                
+                // Mix of gorgeous baby pink and romantic red hues
+                const hueOptions = ['#d9384a', '#ffb3bc', '#ff5e6e', '#ffffff', '#ffccd3'];
+                this.renderColor = hueOptions[Math.floor(Math.random() * hueOptions.length)];
+                
+                // Sizing allocation based on design parameters
+                if(this.variant === 1) {
+                    this.scaleRadius = Math.random() * 18 + 12; // Massive Hearts
+                    this.isHeartShape = true;
+                } else if(this.variant === 2) {
+                    this.scaleRadius = Math.random() * 6 + 3; // Cosmic Glitter Stars
+                    this.isHeartShape = false;
+                } else {
+                    this.scaleRadius = Math.random() * 12 + 6; // Standard Heart Mix
+                    this.isHeartShape = Math.random() > 0.4;
+                }
+            }
+            step() {
+                this.originX += Math.cos(this.angleTrajectory) * this.velocityForce;
+                this.originY += Math.sin(this.angleTrajectory) * this.velocityForce;
+                this.velocityForce *= 0.93; // Air friction slow down feel
+                this.particleAlpha -= this.fadeDecay;
+            }
+            render() {
+                drawContext.save();
+                drawContext.globalAlpha = this.particleAlpha;
+                drawContext.shadowBlur = this.isHeartShape ? 18 : 6;
+                drawContext.shadowColor = this.renderColor;
+                
+                if (!this.isHeartShape) {
+                    // Render premium geometric sparkle shards
+                    drawContext.beginPath();
+                    drawContext.arc(this.originX, this.originY, this.scaleRadius, 0, Math.PI * 2);
+                    drawContext.fillStyle = this.renderColor;
+                    drawContext.fill();
+                } else {
+                    // Render Vector Perfect Hearts
+                    drawContext.translate(this.originX, this.originY);
+                    drawContext.beginPath();
+                    drawContext.moveTo(0, -this.scaleRadius / 4);
+                    drawContext.bezierCurveTo(-this.scaleRadius / 2, -this.scaleRadius, -this.scaleRadius, -this.scaleRadius / 3, -this.scaleRadius, 0);
+                    drawContext.bezierCurveTo(-this.scaleRadius, this.scaleRadius / 3, -this.scaleRadius / 3, this.scaleRadius * 2 / 3, 0, this.scaleRadius);
+                    drawContext.bezierCurveTo(this.scaleRadius / 3, this.scaleRadius * 2 / 3, this.scaleRadius, this.scaleRadius / 3, this.scaleRadius, 0);
+                    drawContext.bezierCurveTo(this.scaleRadius, -this.scaleRadius / 3, this.scaleRadius / 2, -this.scaleRadius, 0, -this.scaleRadius / 4);
+                    drawContext.fillStyle = this.renderColor;
+                    drawContext.fill();
+                }
+                drawContext.restore();
+            }
+        }
+
+        // Initialize background environment framework
+        for(let totalParticles = 0; totalParticles < 50; totalParticles++) {
+            continuousBackgroundParticles.push(new AmbientDrifter());
+        }
+
+        function handleHeartExplosion(nextTargetStage, triggerEvent) {
+            let coordinateX = triggerEvent ? triggerEvent.clientX : window.innerWidth / 2;
+            let coordinateY = triggerEvent ? triggerEvent.clientY : window.innerHeight * 0.7;
+
+            // Pick an explosion variant scheme depending on target progression stage
+            let styleSchema = nextTargetStage === 2 ? 1 : (nextTargetStage === 3 ? 2 : 3);
+
+            // Spawn massive explosion vectors instantly
+            for(let blastCount = 0; blastCount < 120; blastCount++) {
+                screenBlastParticles.push(new MultiExplosionVector(coordinateX, coordinateY, styleSchema));
+            }
+
+            setTimeout(() => {
+                advanceToScreen(nextTargetStage);
+            }, 300);
+        }
+
+        function renderLoop() {
+            // Semi-transparent redraw layer creates luxurious smooth motion blur tail effect
+            drawContext.fillStyle = 'rgba(255, 240, 242, 0.4)';
+            drawContext.fillRect(0, 0, canvasElement.width, canvasElement.height);
+
+            continuousBackgroundParticles.forEach(particle => { particle.step(); particle.render(); });
+
+            for (let particleIndex = screenBlastParticles.length - 1; particleIndex >= 0; particleIndex--) {
+                screenBlastParticles[particleIndex].step();
+                screenBlastParticles[particleIndex].render();
+                if (screenBlastParticles[particleIndex].particleAlpha <= 0) {
+                    screenBlastParticles.splice(particleIndex, 1);
+                }
+            }
+
+            requestAnimationFrame(renderLoop);
+        }
+        requestAnimationFrame(renderLoop);
+    </script>
+
+    <script>
+        const customProseString = "Varsha, sach bataoon toh jab se tum meri life me aayi ho na, bohot saari cheezein badal gayi hain. Tumhare sath rehna, tumse baaten karna mujhe sach me bohot accha lagta hai. Tum mere liye sirf ek special person nahi ho, balki tum wo insaan ho jiske sath main bina soche jaisa hoon, waisa reh sakta hoon. Tumhare chehre par ye lines padhkar ek chhoti si smile aa jaye, bas isiliye maine ye chhoti si screen tumhare liye banayi hai...";
+
+        function checkSecurityAccess() {
+            const rawInputFieldText = document.getElementById('passkeyField').value.trim();
+            
+            // STRICT HARDCODED CONSTRAINT: Must match exactly "Varsha" with capital V
+            if(rawInputFieldText === 'Varsha') {
+                engageRomanticMusic();
+                advanceToScreen(1);
+                setTimeout(initializeTypewriterSequence, 800);
+            } else {
+                const toastNotification = document.getElementById('errorNotice');
+                toastNotification.classList.add('show');
+                setTimeout(() => { toastNotification.classList.remove('show'); }, 3500);
+            }
+        }
+
+        function advanceToScreen(targetScreenId) {
+            currentVisualStage = targetScreenId;
+            const screenElements = document.querySelectorAll('.screen');
+            screenElements.forEach(screen => screen.classList.remove('active'));
+            setTimeout(() => {
+                screenElements[targetScreenId].classList.add('active');
+            }, 50);
+        }
+
+        function initializeTypewriterSequence() {
+            const outputContainer = document.getElementById('typewriterBox');
+            let stringPointer = 0;
+            outputContainer.innerHTML = "";
+            
+            function processCharacter() {
+                if (stringPointer < customProseString.length) {
+                    outputContainer.innerHTML += customProseString.charAt(stringPointer);
+                    stringPointer++;
+                    let situationalDelay = customProseString.charAt(stringPointer - 1) === '.' || customProseString.charAt(stringPointer - 1) === ',' ? 350 : 25;
+                    setTimeout(processCharacter, situationalDelay);
+                }
+            }
+            processCharacter();
+        }
+
+        document.getElementById('passkeyField').addEventListener('keypress', function(eventKeys) {
+            if (eventKeys.key === 'Enter') checkSecurityAccess();
+        });
+    </script>
+</body>
+</html>
