@@ -10,12 +10,11 @@
     
     <style>
         :root {
-            /* Soft Baby Pink & Rich Red Luxury Theme */
             --bg-pink: #fff0f2; 
             --love-red: #d9384a; 
             --rose-accent: #ffb3bc;
             --deep-wine: #5c1d24;
-            --card-white: rgba(255, 255, 255, 0.96);
+            --card-white: rgba(255, 255, 255, 0.98);
             --font-display: 'Cinzel', serif;
             --font-body: 'Montserrat', sans-serif;
             --font-handwrite: 'Caveat', cursive;
@@ -38,14 +37,14 @@
             color: var(--deep-wine);
         }
 
-        /* Full Screen Interactive Canvas */
+        /* Background Canvas Layered Deeply Behind Everything */
         canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            z-index: 1; /* Lowest level */
             pointer-events: none;
         }
 
@@ -53,8 +52,8 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            z-index: 2000;
-            background: rgba(255, 255, 255, 0.9);
+            z-index: 9999; /* Highest level */
+            background: rgba(255, 255, 255, 0.95);
             border: 1px solid var(--rose-accent);
             padding: 8px 15px;
             border-radius: 30px;
@@ -70,11 +69,12 @@
             cursor: pointer;
         }
 
+        /* Container Layered Firmly on Top of Canvas */
         .stage-container {
             position: relative;
             width: 100%;
             height: 100%;
-            z-index: 2;
+            z-index: 10; /* Brought to the front */
         }
 
         .screen {
@@ -93,6 +93,7 @@
             transform: scale(1.03);
             padding: 24px;
             text-align: center;
+            z-index: 15;
         }
 
         .screen.active {
@@ -103,16 +104,18 @@
 
         .love-card {
             background: var(--card-white);
-            border: 2px solid rgba(255, 179, 188, 0.4);
+            border: 2px solid rgba(255, 179, 188, 0.5);
             border-radius: 24px;
             padding: 40px 30px;
             max-width: 520px;
             width: 100%;
             max-height: 85vh;
             overflow-y: auto;
-            box-shadow: 0 20px 40px rgba(217, 56, 74, 0.08), inset 0 0 20px rgba(255, 240, 242, 0.6);
+            box-shadow: 0 20px 45px rgba(217, 56, 74, 0.12), inset 0 0 20px rgba(255, 240, 242, 0.6);
             transform: translateY(15px);
             transition: transform 0.7s ease;
+            position: relative;
+            z-index: 20; /* Card elements forced forward */
         }
         .love-card::-webkit-scrollbar { width: 3px; }
         .love-card::-webkit-scrollbar-thumb { background: var(--rose-accent); border-radius: 10px; }
@@ -179,7 +182,6 @@
             box-shadow: 0 8px 25px rgba(217, 56, 74, 0.4);
         }
 
-        /* Advanced Interactive Heart Explosion Button */
         .heart-clicker-zone {
             margin-top: 30px;
             display: inline-flex;
@@ -187,6 +189,8 @@
             align-items: center;
             gap: 10px;
             width: 100%;
+            position: relative;
+            z-index: 30;
         }
 
         .heart-trigger-btn {
@@ -200,18 +204,19 @@
             align-items: center;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 5px 15px rgba(217, 56, 74, 0.1);
+            box-shadow: 0 5px 15px rgba(217, 56, 74, 0.15);
         }
         .heart-trigger-btn svg {
             width: 26px;
             height: 26px;
             fill: var(--love-red);
             transition: transform 0.2s ease;
+            pointer-events: none;
         }
         .heart-trigger-btn:hover { 
             transform: scale(1.12); 
             border-color: var(--love-red); 
-            box-shadow: 0 8px 20px rgba(217, 56, 74, 0.2); 
+            box-shadow: 0 8px 20px rgba(217, 56, 74, 0.25); 
         }
         .heart-trigger-btn:active svg { transform: scale(0.8); }
 
@@ -284,7 +289,7 @@
     
     <div class="error-popup" id="errorNotice">Please enter the correct name with V capital! ❤️</div>
 
-    <div class="experience-stage">
+    <div class="stage-container">
 
         <div class="screen active" id="stage-gatekeeper">
             <div class="love-card" style="max-width: 450px;">
@@ -378,7 +383,7 @@
                 audioContextInstance = new AudioContextClass();
                 masterWarmthFilter = audioContextInstance.createBiquadFilter();
                 masterWarmthFilter.type = 'lowpass';
-                masterWarmthFilter.frequency.setValueAtTime(380, audioContextInstance.currentTime); // Lowpass for that slowed lofi warmth
+                masterWarmthFilter.frequency.setValueAtTime(380, audioContextInstance.currentTime); 
             } catch(error) { console.log("Audio infrastructure deferred."); }
         }
 
@@ -388,7 +393,7 @@
                 let oscillatorNode = audioContextInstance.createOscillator();
                 let soundGainNode = audioContextInstance.createGain();
                 
-                oscillatorNode.type = 'triangle'; // Mellower lofi aesthetic than standard sine
+                oscillatorNode.type = 'triangle'; 
                 oscillatorNode.frequency.setValueAtTime(pitch, audioContextInstance.currentTime + delayOffset);
                 
                 soundGainNode.gain.setValueAtTime(0, audioContextInstance.currentTime + delayOffset);
@@ -406,11 +411,8 @@
 
         function runSlowedLoFiSequence() {
             if (!musicActiveState) return;
-            
-            // Dreamy, ultra-slowed down romantic progression loops
-            playLoFiChords([196.00, 246.94, 293.66, 392.00], 0.0, 4.5, 0.15); // Gmaj7 Warmth
-            playLoFiChords([164.81, 220.00, 261.63, 329.63], 5.0, 4.5, 0.12); // Cmaj7 Slowed Vibe
-            
+            playLoFiChords([196.00, 246.94, 293.66, 392.00], 0.0, 4.5, 0.15); 
+            playLoFiChords([164.81, 220.00, 261.63, 329.63], 5.0, 4.5, 0.12); 
             compositionTimer = setTimeout(runSlowedLoFiSequence, 10000);
         }
 
@@ -452,7 +454,6 @@
         window.addEventListener('resize', adjustCanvasBounds);
         adjustCanvasBounds();
 
-        // Slow floating ambient background nodes
         class AmbientDrifter {
             constructor() {
                 this.regenerate(true);
@@ -479,38 +480,34 @@
             }
         }
 
-        // Kinetic Shockwave Shock Exploder Model
         class MultiExplosionVector {
             constructor(originX, originY, dynamicVariantType) {
                 this.originX = originX;
                 this.originY = originY;
-                this.variant = dynamicVariantType; // Generates distinct structural styles per stage click
-                
+                this.variant = dynamicVariantType; 
                 this.angleTrajectory = Math.random() * Math.PI * 2;
-                this.velocityForce = Math.random() * 11 + 6; // Fast explosive launch force
+                this.velocityForce = Math.random() * 12 + 6; 
                 this.particleAlpha = 1;
                 this.fadeDecay = Math.random() * 0.016 + 0.012;
                 
-                // Mix of gorgeous baby pink and romantic red hues
                 const hueOptions = ['#d9384a', '#ffb3bc', '#ff5e6e', '#ffffff', '#ffccd3'];
                 this.renderColor = hueOptions[Math.floor(Math.random() * hueOptions.length)];
                 
-                // Sizing allocation based on design parameters
                 if(this.variant === 1) {
-                    this.scaleRadius = Math.random() * 18 + 12; // Massive Hearts
+                    this.scaleRadius = Math.random() * 18 + 12; 
                     this.isHeartShape = true;
                 } else if(this.variant === 2) {
-                    this.scaleRadius = Math.random() * 6 + 3; // Cosmic Glitter Stars
+                    this.scaleRadius = Math.random() * 7 + 4; 
                     this.isHeartShape = false;
                 } else {
-                    this.scaleRadius = Math.random() * 12 + 6; // Standard Heart Mix
+                    this.scaleRadius = Math.random() * 13 + 7; 
                     this.isHeartShape = Math.random() > 0.4;
                 }
             }
             step() {
                 this.originX += Math.cos(this.angleTrajectory) * this.velocityForce;
                 this.originY += Math.sin(this.angleTrajectory) * this.velocityForce;
-                this.velocityForce *= 0.93; // Air friction slow down feel
+                this.velocityForce *= 0.93; 
                 this.particleAlpha -= this.fadeDecay;
             }
             render() {
@@ -520,13 +517,11 @@
                 drawContext.shadowColor = this.renderColor;
                 
                 if (!this.isHeartShape) {
-                    // Render premium geometric sparkle shards
                     drawContext.beginPath();
                     drawContext.arc(this.originX, this.originY, this.scaleRadius, 0, Math.PI * 2);
                     drawContext.fillStyle = this.renderColor;
                     drawContext.fill();
                 } else {
-                    // Render Vector Perfect Hearts
                     drawContext.translate(this.originX, this.originY);
                     drawContext.beginPath();
                     drawContext.moveTo(0, -this.scaleRadius / 4);
@@ -541,7 +536,6 @@
             }
         }
 
-        // Initialize background environment framework
         for(let totalParticles = 0; totalParticles < 50; totalParticles++) {
             continuousBackgroundParticles.push(new AmbientDrifter());
         }
@@ -550,10 +544,8 @@
             let coordinateX = triggerEvent ? triggerEvent.clientX : window.innerWidth / 2;
             let coordinateY = triggerEvent ? triggerEvent.clientY : window.innerHeight * 0.7;
 
-            // Pick an explosion variant scheme depending on target progression stage
             let styleSchema = nextTargetStage === 2 ? 1 : (nextTargetStage === 3 ? 2 : 3);
 
-            // Spawn massive explosion vectors instantly
             for(let blastCount = 0; blastCount < 120; blastCount++) {
                 screenBlastParticles.push(new MultiExplosionVector(coordinateX, coordinateY, styleSchema));
             }
@@ -564,7 +556,6 @@
         }
 
         function renderLoop() {
-            // Semi-transparent redraw layer creates luxurious smooth motion blur tail effect
             drawContext.fillStyle = 'rgba(255, 240, 242, 0.4)';
             drawContext.fillRect(0, 0, canvasElement.width, canvasElement.height);
 
@@ -589,7 +580,6 @@
         function checkSecurityAccess() {
             const rawInputFieldText = document.getElementById('passkeyField').value.trim();
             
-            // STRICT HARDCODED CONSTRAINT: Must match exactly "Varsha" with capital V
             if(rawInputFieldText === 'Varsha') {
                 engageRomanticMusic();
                 advanceToScreen(1);
