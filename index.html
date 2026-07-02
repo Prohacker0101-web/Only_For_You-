@@ -14,7 +14,7 @@
             --love-red: #d9384a; 
             --rose-accent: #ffb3bc;
             --deep-wine: #5c1d24;
-            --card-white: rgba(255, 255, 255, 0.98);
+            --card-white: #ffffff;
             --font-display: 'Cinzel', serif;
             --font-body: 'Montserrat', sans-serif;
             --font-handwrite: 'Caveat', cursive;
@@ -37,14 +37,14 @@
             color: var(--deep-wine);
         }
 
-        /* Background Canvas Layered Deeply Behind Everything */
+        /* Canvas background me rahega bilkul neeche */
         canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1; /* Lowest level */
+            z-index: 1; 
             pointer-events: none;
         }
 
@@ -52,12 +52,11 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            z-index: 9999; /* Highest level */
-            background: rgba(255, 255, 255, 0.95);
+            z-index: 999; 
+            background: #ffffff;
             border: 1px solid var(--rose-accent);
             padding: 8px 15px;
             border-radius: 30px;
-            backdrop-filter: blur(5px);
             color: var(--love-red);
             font-size: 10px;
             font-weight: 600;
@@ -69,12 +68,12 @@
             cursor: pointer;
         }
 
-        /* Container Layered Firmly on Top of Canvas */
-        .stage-container {
+        /* Yeh container sabse upar text ko lekar aayega */
+        .experience-stage {
             position: relative;
             width: 100%;
             height: 100%;
-            z-index: 10; /* Brought to the front */
+            z-index: 50; 
         }
 
         .screen {
@@ -89,11 +88,10 @@
             align-items: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.8s ease, transform 0.8s ease;
-            transform: scale(1.03);
-            padding: 24px;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: scale(0.95);
+            padding: 20px;
             text-align: center;
-            z-index: 15;
         }
 
         .screen.active {
@@ -104,36 +102,29 @@
 
         .love-card {
             background: var(--card-white);
-            border: 2px solid rgba(255, 179, 188, 0.5);
+            border: 2px solid rgba(255, 179, 188, 0.8);
             border-radius: 24px;
-            padding: 40px 30px;
-            max-width: 520px;
+            padding: 35px 25px;
+            max-width: 480px;
             width: 100%;
-            max-height: 85vh;
+            max-height: 80vh;
             overflow-y: auto;
-            box-shadow: 0 20px 45px rgba(217, 56, 74, 0.12), inset 0 0 20px rgba(255, 240, 242, 0.6);
-            transform: translateY(15px);
-            transition: transform 0.7s ease;
-            position: relative;
-            z-index: 20; /* Card elements forced forward */
+            box-shadow: 0 15px 35px rgba(217, 56, 74, 0.15);
+            display: block; /* Forced to display contents */
         }
-        .love-card::-webkit-scrollbar { width: 3px; }
-        .love-card::-webkit-scrollbar-thumb { background: var(--rose-accent); border-radius: 10px; }
         
-        .screen.active .love-card { transform: translateY(0); }
-
         .title-romantic {
             font-family: var(--font-display);
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             color: var(--love-red);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-size: 18px;
         }
 
         .script-romantic {
             font-family: var(--font-handwrite);
-            font-size: 3.8rem;
+            font-size: 3.5rem;
             color: var(--love-red);
             line-height: 1;
             margin-bottom: 15px;
@@ -142,7 +133,7 @@
         .romantic-input {
             background: #ffffff;
             border: 2px solid var(--rose-accent);
-            padding: 14px 20px;
+            padding: 12px 20px;
             border-radius: 50px;
             color: var(--deep-wine);
             font-family: var(--font-body);
@@ -151,21 +142,19 @@
             letter-spacing: 1px;
             text-align: center;
             width: 100%;
-            max-width: 260px;
+            max-width: 240px;
             margin-top: 15px;
             outline: none;
-            transition: all 0.3s ease;
         }
         .romantic-input:focus {
             border-color: var(--love-red);
-            box-shadow: 0 0 15px rgba(217, 56, 74, 0.2);
         }
 
         .btn-romantic {
-            margin-top: 25px;
+            margin-top: 20px;
             background: linear-gradient(135deg, var(--love-red), #ff5e6e);
             border: none;
-            padding: 15px 40px;
+            padding: 14px 35px;
             border-radius: 50px;
             color: #ffffff;
             font-family: var(--font-body);
@@ -174,28 +163,21 @@
             text-transform: uppercase;
             font-size: 11px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(217, 56, 74, 0.3);
-        }
-        .btn-romantic:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(217, 56, 74, 0.4);
+            box-shadow: 0 5px 15px rgba(217, 56, 74, 0.3);
         }
 
         .heart-clicker-zone {
-            margin-top: 30px;
-            display: inline-flex;
+            margin-top: 25px;
+            display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             width: 100%;
-            position: relative;
-            z-index: 30;
         }
 
         .heart-trigger-btn {
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background: #ffffff;
             border: 2px solid var(--rose-accent);
@@ -203,22 +185,13 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 5px 15px rgba(217, 56, 74, 0.15);
+            box-shadow: 0 4px 10px rgba(217, 56, 74, 0.15);
         }
         .heart-trigger-btn svg {
-            width: 26px;
-            height: 26px;
+            width: 24px;
+            height: 24px;
             fill: var(--love-red);
-            transition: transform 0.2s ease;
-            pointer-events: none;
         }
-        .heart-trigger-btn:hover { 
-            transform: scale(1.12); 
-            border-color: var(--love-red); 
-            box-shadow: 0 8px 20px rgba(217, 56, 74, 0.25); 
-        }
-        .heart-trigger-btn:active svg { transform: scale(0.8); }
 
         .heart-hint {
             font-family: var(--font-body);
@@ -227,29 +200,28 @@
             text-transform: uppercase;
             color: var(--love-red);
             font-weight: 600;
-            animation: heartPulse 1.8s infinite ease-in-out;
         }
 
         .typewriter-text {
             font-family: var(--font-body);
             font-weight: 400;
-            font-size: 14.5px;
-            line-height: 2;
+            font-size: 14px;
+            line-height: 1.8;
             color: var(--deep-wine);
             text-align: left;
-            min-height: 120px;
+            min-height: 100px;
         }
 
         .prose-romantic {
-            font-size: 15px;
-            line-height: 1.9;
+            font-size: 14.5px;
+            line-height: 1.8;
             font-weight: 400;
             color: var(--deep-wine);
             margin-bottom: 15px;
         }
 
-        .love-list { text-align: left; max-width: 450px; margin: 20px auto; }
-        .love-item { display: flex; align-items: center; gap: 12px; margin: 15px 0; font-size: 14px; line-height: 1.7; }
+        .love-list { text-align: left; max-width: 450px; margin: 15px auto; }
+        .love-item { display: flex; align-items: center; gap: 10px; margin: 12px 0; font-size: 13.5px; }
         .love-bullet { width: 6px; height: 6px; background: var(--love-red); border-radius: 50%; flex-shrink: 0; }
 
         .error-popup {
@@ -263,19 +235,13 @@
             border-radius: 50px;
             font-size: 12px;
             font-weight: 600;
-            letter-spacing: 1px;
             color: var(--love-red);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             z-index: 10000;
             box-shadow: 0 10px 25px rgba(217, 56, 74, 0.15);
         }
         .error-popup.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-        @keyframes heartPulse {
-            0%, 100% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.05); opacity: 1; }
-        }
     </style>
 </head>
 <body>
@@ -289,12 +255,12 @@
     
     <div class="error-popup" id="errorNotice">Please enter the correct name with V capital! ❤️</div>
 
-    <div class="stage-container">
+    <div class="experience-stage">
 
         <div class="screen active" id="stage-gatekeeper">
-            <div class="love-card" style="max-width: 450px;">
+            <div class="love-card">
                 <div class="script-romantic">Hey...</div>
-                <h1 class="title-romantic" style="font-size: 13.5px; margin-bottom: 5px; letter-spacing: 1.5px;">Maine tumhare liye kuch chhota sa banaya hai.</h1>
+                <h1 class="title-romantic" style="font-size: 14px;">Maine tumhare liye kuch chhota sa banaya hai.</h1>
                 <input type="text" id="passkeyField" class="romantic-input" placeholder="Enter Your Name" autocomplete="off">
                 <br>
                 <button class="btn-romantic" onclick="checkSecurityAccess()">Open It</button>
@@ -317,7 +283,7 @@
 
         <div class="screen" id="stage-favorites">
             <div class="love-card">
-                <h2 class="title-romantic" style="font-size: 16px; margin-bottom: 5px;">My Favorite Things</h2>
+                <h2 class="title-romantic" style="font-size: 16px;">My Favorite Things</h2>
                 
                 <div class="love-list">
                     <div class="love-item"><div class="love-bullet"></div><p>Tumhari wo pyari si smile jisse mera kaisa bhi day ho, achha ho jata hai.</p></div>
@@ -338,7 +304,7 @@
         <div class="screen" id="stage-peace">
             <div class="love-card">
                 <h2 class="title-romantic" style="font-size: 16px;">No More Arguments...</h2>
-                <div class="prose-romantic" style="margin-top: 15px;">
+                <div class="prose-romantic" style="margin-top: 10px;">
                     "Main sach me ab koi ladai ya faltu ki bahas nahi karna chahta. Main chahta hoon ki hum dono bas khush rahein, bina kisi tension ke."
                 </div>
                 <div class="prose-romantic" style="color: var(--love-red); font-weight: 600;">
@@ -384,7 +350,7 @@
                 masterWarmthFilter = audioContextInstance.createBiquadFilter();
                 masterWarmthFilter.type = 'lowpass';
                 masterWarmthFilter.frequency.setValueAtTime(380, audioContextInstance.currentTime); 
-            } catch(error) { console.log("Audio infrastructure deferred."); }
+            } catch(error) { console.log("Audio pipeline hidden."); }
         }
 
         function playLoFiChords(frequencies, delayOffset, soundDuration, volumeIntensity) {
@@ -445,7 +411,6 @@
 
         let continuousBackgroundParticles = [];
         let screenBlastParticles = [];
-        let currentVisualStage = 0;
 
         function adjustCanvasBounds() {
             canvasElement.width = window.innerWidth;
@@ -536,7 +501,7 @@
             }
         }
 
-        for(let totalParticles = 0; totalParticles < 50; totalParticles++) {
+        for(let totalParticles = 0; totalParticles < 40; totalParticles++) {
             continuousBackgroundParticles.push(new AmbientDrifter());
         }
 
@@ -592,7 +557,6 @@
         }
 
         function advanceToScreen(targetScreenId) {
-            currentVisualStage = targetScreenId;
             const screenElements = document.querySelectorAll('.screen');
             screenElements.forEach(screen => screen.classList.remove('active'));
             setTimeout(() => {
